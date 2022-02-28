@@ -28,6 +28,10 @@ class MyUserAdmin(UserAdmin):
 
 class ProfileAdmin(admin.ModelAdmin):
     form = ProfileAdminForm
+    readonly_fields = ['user']
+    raw_id_fields = ['room']
+
+    fields = ['user', 'room']
 
 admin.site.register(MyUser, MyUserAdmin)
 admin.site.register(Profile, ProfileAdmin)

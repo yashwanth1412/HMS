@@ -24,8 +24,7 @@ class Profile(models.Model):
 
     def save(self, *args, **kwargs):
         if self.room:
-            room = Room.objects.get(number=self.room.number)
-            if room.students.count() < self.room.beds:
+            if self.room.students.count() < self.room.beds:
                 super().save(*args, **kwargs)
         else:
             super().save(*args, **kwargs)

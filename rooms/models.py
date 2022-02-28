@@ -9,12 +9,12 @@ class Hostel(models.Model):
         return f"{self.name} block"
 
 class Room(models.Model):
-    # hostel = models.ForeignKey(Hostel, related_name="rooms", on_delete=models.CASCADE)
+    hostel = models.ForeignKey(Hostel, related_name="rooms", on_delete=models.CASCADE)
     number = models.CharField(max_length=5, verbose_name="Room no")
     beds = models.PositiveIntegerField(default=0, validators=[MinValueValidator(0)])
 
-    # class Meta:
-    #     unique_together = (("hostel", "number"))
+    class Meta:
+        unique_together = (("hostel", "number"))
 
     def __str__(self):
-        return f"Room no: {self.number}"
+        return f"{self.hostel.name} - Room no: {self.number}"

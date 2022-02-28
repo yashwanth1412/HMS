@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Room
+from .models import Hostel, Room
 from .forms import RoomAdminForm
 from users.models import Profile
 # Register your models here.
@@ -20,5 +20,7 @@ class RoomAdmin(admin.ModelAdmin):
     inlines = [
         ProfileInline,
     ]
+    raw_id_fields = ['hostel']
 
+admin.site.register(Hostel)
 admin.site.register(Room, RoomAdmin)
