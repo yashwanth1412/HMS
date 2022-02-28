@@ -14,7 +14,8 @@ class Room(models.Model):
     beds = models.PositiveIntegerField(default=0, validators=[MinValueValidator(0)])
 
     class Meta:
-        unique_together = (("hostel", "number"))
+        unique_together = ["hostel", "number"]
+        ordering = ['hostel', 'number']
 
     def __str__(self):
         return f"{self.hostel.name} - Room no: {self.number}"

@@ -25,13 +25,16 @@ class MyUserAdmin(UserAdmin):
     )
 
     list_display = ['username', 'email']
+    list_filter = ['is_student', 'is_security']
+    search_fields = ['username']
 
 class ProfileAdmin(admin.ModelAdmin):
     form = ProfileAdminForm
     readonly_fields = ['user']
     raw_id_fields = ['room']
 
-    fields = ['user', 'room']
+    fields = ['user', 'room', 'rollno']
+    search_fields = ['rollno']
 
 admin.site.register(MyUser, MyUserAdmin)
 admin.site.register(Profile, ProfileAdmin)

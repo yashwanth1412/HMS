@@ -1,14 +1,19 @@
 from django.contrib import admin
 from .models import Hostel, Room
-from .forms import RoomAdminForm
+from .forms import HostelAdminForm, RoomAdminForm
 from users.models import Profile
 # Register your models here.
 
+class HostelAdmin(admin.ModelAdmin):
+    form = HostelAdminForm
+    search_fields = ['name']
+
 class ProfileInline(admin.StackedInline):
     model = Profile
-    readonly_fields = ['user']
+    readonly_fields = ['rollno']
     verbose_name = "student"
     can_delete = False
+    fields = ['rollno']
     
     def get_max_num(self, request, obj=None, **kwargs):
         if obj:
@@ -21,6 +26,8 @@ class RoomAdmin(admin.ModelAdmin):
         ProfileInline,
     ]
     raw_id_fields = ['hostel']
+    list_filter = ['hostel']
+    search_fields = ['number']
 
-admin.site.register(Hostel)
+admin.site.register(Hostel, HostelAdmin)
 admin.site.register(Room, RoomAdmin)

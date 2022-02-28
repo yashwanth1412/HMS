@@ -21,6 +21,7 @@ class MyUser(AbstractUser):
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name="profile", on_delete=models.CASCADE)
     room = models.ForeignKey(Room, null=True, blank=True, related_name="students", on_delete=models.SET_NULL)
+    rollno = models.CharField(max_length=10, unique=True)
 
     def save(self, *args, **kwargs):
         if self.room:
@@ -31,7 +32,7 @@ class Profile(models.Model):
         
 
     def __str__(self):
-        return f"{self.user.username}'s profile"
+        return f"{self.rollno}"
 
 @receiver(user_signed_up)
 def createProfile(sender=MyUser, **kwargs):
@@ -40,4 +41,5 @@ def createProfile(sender=MyUser, **kwargs):
     user.is_student = True
     user.is_security = False
     user.save()
-    Profile.objects.create(user=user)
+    rollno = user.email.split("@")[0]
+    Profile.objects.create(user=user, rollno=rollno)

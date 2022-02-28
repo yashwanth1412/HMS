@@ -21,15 +21,16 @@ class ProfileAdminForm(forms.ModelForm):
         return cleaned_data
 
 class ProfileForm(forms.ModelForm):
-    username = forms.CharField()
-    first_name = forms.CharField()
-    last_name = forms.CharField()
-    email = forms.EmailField()
-    room = forms.CharField()
+    # username = forms.CharField()
+    # first_name = forms.CharField()
+    # last_name = forms.CharField()
+    # email = forms.EmailField()
+    # room = forms.CharField()
+    # rollno = forms.CharField()
 
     class Meta:
         model = Profile
-        fields = []
+        fields = ['user', 'room', 'rollno']
     
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
