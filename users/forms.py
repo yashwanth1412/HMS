@@ -20,23 +20,6 @@ class ProfileAdminForm(forms.ModelForm):
             raise forms.ValidationError(f"There is no vacancy in the Room: {room.number}. Select another room.")
         return cleaned_data
 
-class ProfileForm(forms.ModelForm):
-    # username = forms.CharField()
-    # first_name = forms.CharField()
-    # last_name = forms.CharField()
-    # email = forms.EmailField()
-    # room = forms.CharField()
-    # rollno = forms.CharField()
-
-    class Meta:
-        model = Profile
-        fields = ['user', 'room', 'rollno']
-    
-    def __init__(self, *args, **kwargs):
-        super(ProfileForm, self).__init__(*args, **kwargs)
-        profile = kwargs.get('instance')
-        self.fields['username'].initial = profile.user.username
-        self.fields['first_name'].initial = profile.user.first_name
-        self.fields['last_name'].initial = profile.user.last_name
-        self.fields['email'].initial = profile.user.email
-        self.fields['room'].initial = profile.room.number
+class ProfileForm(forms.Form):
+    room = forms.CharField(widget=forms.TextInput(attrs={'class': "form-control", 'required' : False}))
+    rollno = forms.CharField(widget=forms.TextInput(attrs={'class': "form-control"}))

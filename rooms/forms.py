@@ -83,4 +83,19 @@ class RequestChangeRoomAdminForm(forms.ModelForm):
     def clean(self):
         if not (self.cleaned_data.get('allocate_room') or self.cleaned_data.get('remarks')):
             raise forms.ValidationError(f"Both allocate_room and remarks cannot be empty")
+
+def get_vacant_rooms():
+    room_ids = [room.id for room in Room.objects.all() if room.beds > room.students.count()]
+    return Room.objects.filter(id__in = room_ids)
+
+class RequestChangeRoomForm(forms.ModelForm):
+    preferences = forms.ModelMultipleChoiceField(
+        queryset=get_vacant_rooms(),
+        widget=forms.CheckboxSelectMultiple
+    )
+    
+    reason = forms.CharField(widget=forms.TextInput(attrs={'class': "form-control"}))
+    class Meta:
+        model = RequestChangeRoom
+        fields = ['preferences', 'reason']
         

@@ -7,6 +7,8 @@ from django.views import View
 from django.contrib import messages
 from django.views.decorators.cache import never_cache
 from .forms import ProfileForm
+from rooms.forms import RequestChangeRoomForm
+from rooms.models import RequestChangeRoom
 
 # Create your views here.
 @method_decorator(never_cache, name='dispatch')
@@ -42,17 +44,34 @@ class HomeView(View):
             "msg" : f"Hello {request.user.username}"
         })
 
-# @method_decorator(login_required, name='dispatch')
-# class ProfileView(View):
-#     template_name = 'users/profile.html'
-#     form = ProfileForm
+@method_decorator(login_required, name='dispatch')
+class ProfileView(View):
+    template_name = 'users/profile.html'
+    profileform = ProfileForm
+    requestroomform = RequestChangeRoomForm
 
-#     def get(self, request, *args, **kwargs):
-#         profile = request.user.profile
-#         form = self.form(instance=profile)
-#         return render(request, self.template_name, {
-#             "form" : form
-#         })
+    def get(self, request, *args, **kwargs):
+        profile = request.user.profile
+
+        room = None
+        if profile.room:
+            room = f"{profile.room.hostel.name} - Room no: {profile.room.number}"
+        data = {'room': room, 'rollno': profile.rollno}
+        profileform = self.profileform(initial=data)
+
+        requestroomform = self.requestroomform()
+        check_request = RequestChangeRoom.objects.filter(student=profile, status="pending")
+
+        if not check_request:
+            exists = False
+        else:
+            exists = True
+
+        return render(request, self.template_name, {
+            "profileform" : profileform,
+            "changerequest_exists" : exists,
+            "requestroomform" : requestroomform
+        })
 
 class LogOutView(View):
     redirect_url = "users:login"

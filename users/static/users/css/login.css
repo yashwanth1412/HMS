@@ -1,0 +1,53 @@
+form{
+    margin: 2% auto;
+    -webkit-margin-collapse: collapse;
+    text-align: center;
+    width: 40%;
+}
+
+.row{
+    margin: auto;
+    width: 30%;
+}
+
+input{
+    padding: 2%;
+    margin-top: 3%;
+    -webkit-margin-collapse: collapse;
+}
+
+.bg-text {
+    position: absolute;
+    top: 25%;
+    z-index: 2;
+    width: 100%;
+    margin: 0 auto;
+}
+
+  
+.text-center button {
+    margin: 0 auto;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    width: 25%;
+}
+
+.text-center button:hover {
+    background-color: #ddd;
+}
+
+.text-center button.active {
+    background-color: rgb(101, 163, 179);
+}
+
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+}
+
+.container {
+    margin-bottom: 2%;
+}

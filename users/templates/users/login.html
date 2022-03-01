@@ -1,5 +1,11 @@
 {% extends "users/layout.html" %}
+{% load static %}
 {% load socialaccount %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'users/css/login.css' %}">
+{% endblock %}
+
 {% block content %}
 {% load static %}
     <div class="bg_image"></div>

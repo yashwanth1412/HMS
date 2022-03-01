@@ -1,0 +1,94 @@
+{% extends "users/layout.html" %}
+{% block content %}
+    <div class="profile"> 
+        <form id='form'>
+            {% for field in profileform %}
+                <label>{{field.label}}</label>
+                {{field}}
+                
+                {% for error in field.errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error | escape }}</strong>
+                    </div> 
+                {% endfor %}
+            {% endfor %}
+        </form>
+
+        {% if not changerequest_exists %}
+            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Request change room
+            </button>
+        {% else %}
+            <button type="button" class="btn btn-info" disabled>
+                Your request to change room is being processed
+            </button>
+        {% endif %}
+    </div>
+      
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Request change room</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </button>
+            </div>
+            <form class="profile" method="POST" action="{% url 'rooms:request-change-room' %}">
+                {% csrf_token %}
+                <div class="modal-body">
+                    {% for field in requestroomform %}
+                        <label>{{field.label}}</label>
+                        {{field}}
+                        
+                        {% for error in field.errors %}
+                            <div class="alert alert-danger">
+                                <strong>{{ error | escape }}</strong>
+                            </div> 
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    <style>
+        .profile{
+            margin: 2%;
+            text-align: left;
+        }
+
+        .pic{
+            width: 30%;
+        }
+
+        input, textarea{
+            margin: 1% 0 1% 0;
+            -webkit-margin-collapse: collapse;
+        }
+
+        #form-save{
+            display: none;
+        }
+    </style>
+
+    <script>
+        var form = document.getElementById("form");
+
+        function toggle_form(val){
+            var elements = form.elements;
+            for (var i = 0, len = elements.length; i < len; ++i) {
+                elements[i].readOnly = val;
+            }
+        }
+
+        $(window).on("load", e => {
+            toggle_form(true)
+        })
+    </script>
+{% endblock %}
