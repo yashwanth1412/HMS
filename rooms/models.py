@@ -19,3 +19,23 @@ class Room(models.Model):
 
     def __str__(self):
         return f"{self.hostel.name} - Room no: {self.number}"
+
+STATUS = (
+    ('pending', 'Pending'),
+    ('resolved', 'Resolved')
+)
+
+class RequestChangeRoom(models.Model):
+    student = models.ForeignKey('users.Profile', related_name="requeststo_changeroom", on_delete=models.CASCADE)
+    preferences = models.ManyToManyField(Room, blank=True, related_name="room_preferences")
+    allocate_room = models.ForeignKey(Room, blank=True, null=True, on_delete=models.SET_NULL)
+    reason = models.TextField()
+    remarks = models.TextField(null=True, blank=True)
+    status = models.CharField(max_length=20, choices=STATUS, default="pending")
+
+    class Meta:
+        verbose_name = "Request to change room"
+        verbose_name_plural = "Requests to change room"
+
+    def __str__(self):
+        return f"{self.student.rollno} request to change room"

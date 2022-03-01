@@ -1,5 +1,8 @@
 from django.db import models
+# from allauth.account import app_settings
 from allauth.account.signals import user_signed_up
+# from allauth.socialaccount.signals import pre_social_login
+# from allauth.account.utils import perform_login
 from django.dispatch import receiver
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.conf import settings
@@ -33,6 +36,13 @@ class Profile(models.Model):
 
     def __str__(self):
         return f"{self.rollno}"
+
+# @receiver(pre_social_login)
+# def link_to_local_user(sender, request, sociallogin, **kwargs):
+#     email_address = sociallogin.account.extra_data['email']
+#     users = MyUser.objects.filter(email=email_address)
+#     if users:
+#         perform_login(request, users[0], email_verification=app_settings.EMAIL_VERIFICATION)
 
 @receiver(user_signed_up)
 def createProfile(sender=MyUser, **kwargs):

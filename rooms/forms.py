@@ -1,6 +1,6 @@
 from django import forms
-from .models import Hostel, Room
 from django.core.exceptions import ObjectDoesNotExist
+from .models import Hostel, Room, RequestChangeRoom
 
 ROOM_CHOICES = (
     ('create', 'Create rooms'),
@@ -19,8 +19,6 @@ class HostelAdminForm(forms.ModelForm):
         fields = ['name', 'room_options', 'start_room', 'end_room']
 
     def clean(self):
-        print(self.cleaned_data)
-    
         if self.cleaned_data.get('start_room') and self.cleaned_data.get('end_room'):
             if self.cleaned_data.get('start_room')[0] != self.cleaned_data.get('end_room')[0]:
                 raise forms.ValidationError(f"Floor numbers of both start and end rooms must be same")
@@ -76,3 +74,13 @@ class RoomAdminForm(forms.ModelForm):
         if room and (room.students.count() > beds):
             raise forms.ValidationError(f"Cannot decrease beds in Room: {no} since all of them are occupied.")
         return cleaned_data
+
+class RequestChangeRoomAdminForm(forms.ModelForm):
+    class Meta:
+        model = RequestChangeRoom
+        fields = ['student', 'preferences', 'reason', 'allocate_room', 'remarks', 'status']
+
+    def clean(self):
+        if not (self.cleaned_data.get('allocate_room') or self.cleaned_data.get('remarks')):
+            raise forms.ValidationError(f"Both allocate_room and remarks cannot be empty")
+        
