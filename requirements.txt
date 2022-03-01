@@ -1,4 +1,4 @@
 Django
 django-allauth
 python-dotenv
-django-crispy-forms
+Pillow

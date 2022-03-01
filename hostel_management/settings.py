@@ -48,9 +48,9 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-    'crispy_forms',
     'users',
     'rooms',
+    'complaints',
 ]
 
 MIDDLEWARE = [
@@ -191,5 +191,3 @@ SOCIALACCOUNT_QUERY_EMAIL=True
 AUTH_USER_MODEL = 'users.MyUser'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
