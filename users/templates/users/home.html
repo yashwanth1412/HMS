@@ -1,4 +1,9 @@
 {% extends "users/layout.html" %}
 {% block content %}
     <h1>{{ msg }}</h1>
+
+    <script>
+        const nav = document.getElementById("home")
+        nav.classList.add("active")
+    </script>
 {% endblock %}

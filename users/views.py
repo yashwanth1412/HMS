@@ -53,6 +53,9 @@ class ProfileView(View):
     def get(self, request, *args, **kwargs):
         profile = request.user.profile
 
+        if not profile:
+            return redirect(reverse("users:home"))
+
         room = None
         if profile.room:
             room = f"{profile.room.hostel.name} - Room no: {profile.room.number}"

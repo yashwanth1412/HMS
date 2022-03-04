@@ -1,0 +1,42 @@
+{% extends "users/layout.html" %}
+{% block content %}
+    <form method="POST" action="{% url 'complaints:add-complaint' %}" enctype="multipart/form-data" id='form'>
+        {% csrf_token %}
+        {% for field in form %}
+            {% if forloop.first %}
+                <div class='mb-3'>
+                    <label class="form-label"> {{field.label}} </label>
+                    <input type="file" class="form-control" name="photo" accept="image/*" id="id_photo">
+                </div>
+            {% else %}
+                <div class="form-floating">
+                    <textarea class="form-control" name="complaint" placeholder="Give your complaint here" required id="id_complaint" style="height: 100px"></textarea>
+                    <label for="floatingTextarea2">{{field.label}}</label>
+                </div>
+            {% endif %}
+
+            {% for error in field.errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ error | escape }}</strong>
+                </div> 
+            {% endfor %}
+        {% endfor %}
+        <input type="submit" value="Lodge" class="btn btn-info">
+    </form>
+
+    <style>
+        form{
+            margin: 2%;
+        }
+
+        input, textarea{
+            margin: .5% 0;
+            -webkit-margin-collapse: collapse;
+        }
+    </style>
+
+    <script>
+        const nav = document.getElementById("add_complaint")
+        nav.classList.add("active")
+    </script>
+{% endblock %}
