@@ -8,6 +8,9 @@ class HostelAdmin(admin.ModelAdmin):
     form = HostelAdminForm
     search_fields = ['name']
 
+    class Media:
+        js = ('js/alert.js',)
+
 class ProfileInline(admin.StackedInline):
     model = Profile
     readonly_fields = ['rollno']
@@ -57,6 +60,9 @@ class RoomAdmin(admin.ModelAdmin):
     search_fields = ['number']
     list_per_page = 10
 
+    class Media:
+        js = ('js/alert.js',)
+
 class RequestChangeRoomAdmin(admin.ModelAdmin):
     form = RequestChangeRoomAdminForm
     list_filter = ['status']
@@ -87,6 +93,9 @@ class RequestChangeRoomAdmin(admin.ModelAdmin):
         obj.status = 'resolved'
         obj.save()
         return super().response_change(request, obj)
+    
+    class Media:
+        js = ('js/alert.js',)
 
 admin.site.register(Hostel, HostelAdmin)
 admin.site.register(Room, RoomAdmin)

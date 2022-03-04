@@ -30,4 +30,7 @@ class ComplaintAdmin(admin.ModelAdmin):
         obj.save()
         return super().response_change(request, obj)
 
+    class Media:
+        js = ('js/alert.js',)
+
 admin.site.register(Complaint, ComplaintAdmin)
