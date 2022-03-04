@@ -30,11 +30,15 @@ class MyUserAdmin(UserAdmin):
 
 class ProfileAdmin(admin.ModelAdmin):
     form = ProfileAdminForm
-    readonly_fields = ['user']
-
     fields = ['user', 'room', 'rollno']
     search_fields = ['rollno']
     autocomplete_fields = ('room',)
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj:
+            return ['user']
+        else:
+            return []
 
 admin.site.register(MyUser, MyUserAdmin)
 admin.site.register(Profile, ProfileAdmin)

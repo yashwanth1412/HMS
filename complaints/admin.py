@@ -7,9 +7,10 @@ from .forms import ComplaintAdminForm
 class ComplaintAdmin(admin.ModelAdmin):
     form = ComplaintAdminForm
     list_filter = ['status']
-    list_display = ['name_colored', 'user']
+    list_display = ['complaint_id', 'user']
+    autocomplete_fields = ['user']
 
-    def name_colored(self, obj):
+    def complaint_id(self, obj):
         if obj.status == 'resolved':
             color_code = '79b340'
         else:
@@ -19,7 +20,10 @@ class ComplaintAdmin(admin.ModelAdmin):
 
 
     def get_readonly_fields(self, request, obj=None):
-        return ['user', 'photo', 'complaint', 'status']
+        if obj:
+            return ['user', 'photo', 'complaint', 'status']
+        else:
+            return []
 
     def response_change(self, request, obj):
         obj.status = 'resolved'
@@ -27,4 +31,3 @@ class ComplaintAdmin(admin.ModelAdmin):
         return super().response_change(request, obj)
 
 admin.site.register(Complaint, ComplaintAdmin)
-

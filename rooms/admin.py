@@ -63,7 +63,10 @@ class RequestChangeRoomAdmin(admin.ModelAdmin):
     raw_id_fields = ['allocate_room']
 
     def get_readonly_fields(self, request, obj=None):
-        return ['student', 'reason', 'preferences', 'status']
+        if obj:
+            return ['student', 'reason', 'preferences', 'status']
+        else:
+            return []
     
     def get_form(self, request, obj=None, **kwargs):
         form = super(RequestChangeRoomAdmin, self).get_form(request, obj, **kwargs)
