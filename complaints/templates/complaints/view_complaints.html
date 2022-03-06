@@ -25,6 +25,11 @@
                         >
                             Delete
                         </a>
+                    {% else %}
+                        {% if complaint.remarks %}
+                        <hr>
+                        <div> <strong>Remarks : </strong>{{complaint.remarks}} </div>
+                        {% endif %}
                     {% endif %}
                 </div>
             </div>
