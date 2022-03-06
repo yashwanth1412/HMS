@@ -1,16 +1,21 @@
 {% extends "users/layout.html" %}
 {% block content %}
-    <form method="POST" action="{% url 'complaints:add-complaint' %}" enctype="multipart/form-data" id='form'>
+    <form method="POST" action="{% url 'complaints:edit' complaint.id %}" enctype="multipart/form-data" id='form'>
         {% csrf_token %}
         {% for field in form %}
             {% if forloop.first %}
                 <div class='mb-3'>
-                    <label class="form-label"> {{field.label}} </label>
+                    {% if complaint.photo %}
+                        <img src={{complaint.photo.url}} width="20%" height="20%" style="background-size: contain;">
+                        <input type="checkbox" name="photo-clear" id="photo-clear_id">
+                        <label for="photo-clear_id">Clear</label><br>
+                    {% endif %}
                     <input type="file" class="form-control" name="photo" accept="image/*" id="id_photo">
                 </div>
             {% else %}
                 <div class="form-floating">
-                    <textarea class="form-control" name="complaint" placeholder="Give your complaint here" required id="id_complaint" style="height: 100px"></textarea>
+                    <textarea class="form-control" name="complaint" placeholder="Give your complaint here" required id="id_complaint" 
+                        style="height: 100px">{{complaint.complaint}}</textarea>
                     <label for="floatingTextarea2">{{field.label}}</label>
                 </div>
             {% endif %}
@@ -21,7 +26,7 @@
                 </div> 
             {% endfor %}
         {% endfor %}
-        <input type="submit" value="Lodge" class="btn btn-info">
+        <input type="submit" value="Edit" class="btn btn-info">
     </form>
 
     <style>

@@ -21,7 +21,7 @@ class ComplaintAdmin(admin.ModelAdmin):
 
     def get_readonly_fields(self, request, obj=None):
         if obj:
-            return ['user', 'photo', 'complaint', 'status']
+            return ['user', 'photo', 'complaint', 'status', 'created_at']
         else:
             return []
 

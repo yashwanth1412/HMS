@@ -1,0 +1,39 @@
+{% extends "users/layout.html" %}
+{% block content %}
+    <div>
+        <a href="{% url 'complaints:add-complaint' %}" class="btn btn-dark" style="float:right; margin: 0 1% 0 0">Add Complaint</a>
+    </div>
+    {% for complaint in complaints %}
+        <div class="complaints" style="margin: 1%;">
+            <div class="card text-white bg-{{ complaint.status|yesno:"success,warning" }} w-75" style="margin: 0 0 0 .5%;">
+                <div class="card-header" style="color:{{ complaint.status|yesno:"white,black" }};display: flex; justify-content: space-between">
+                    <h5>Complaint Id# {{complaint.id}}</h5>
+                    <small style:"right:0;">Status: {{ complaint.status|yesno:"Resolved,Pending" }}</small>
+                </div>
+                <div class="card-body" style="color:{{ complaint.status|yesno:"white,black" }};">
+                    <h5 class="card-title">Primary card title</h5>
+                    <p class="card-text">{{complaint.complaint}}</p>
+                    {% if not complaint.status %}
+                        <a href="{% url 'complaints:edit' complaint.pk %}" 
+                            class="btn btn-dark"
+                        >
+                            Edit
+                        </a>
+                        <a href="{% url 'complaints:delete' complaint.pk %}" 
+                            class="btn btn-danger" 
+                            onclick="return confirm('Are you sure');"
+                        >
+                            Delete
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    <script>
+        const nav = document.getElementById("view_complaint")
+        nav.classList.add("active")
+    </script>
+
+{% endblock %}

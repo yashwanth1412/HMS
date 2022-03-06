@@ -7,10 +7,14 @@ body {
     box-sizing: border-box;
 }
 
+.content {
+    display: flex;
+    flex-direction: column;
+    min-height: 80vh;
+}
+
 footer {
     margin-top: auto;
-    position: absolute;
-    bottom: 0;
     height: 20vh;
     width: 100%;
     background:rgb(6, 30, 53);
