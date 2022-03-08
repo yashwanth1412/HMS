@@ -1,9 +1,12 @@
 {% extends "users/layout.html" %}
 {% block content %}
-    <div>
-        <a href="{% url 'complaints:add-complaint' %}" class="btn btn-dark" style="float:right; margin: 0 1% 0 0">Add Complaint</a>
-    </div>
+    
     {% for complaint in complaints %}
+        {% if forloop.first %}
+            <div>
+                <a href="{% url 'complaints:add-complaint' %}" class="btn btn-dark" style="float:right; margin: 0 1% 0 0">Add Complaint</a>
+            </div>
+        {% endif %}
         <div class="complaints" style="margin: 1%;">
             <div class="card text-white bg-{{ complaint.status|yesno:"success,warning" }} w-75" style="margin: 0 0 0 .5%;">
                 <div class="card-header" style="color:{{ complaint.status|yesno:"white,black" }};display: flex; justify-content: space-between">
@@ -34,7 +37,22 @@
                 </div>
             </div>
         </div>
+    {% empty %}
+        <div class="jumbotron empty">
+            <h1 class="display-4">No complaints</h1>
+            <p class="lead">You haven't logded a complaint yet.</p>
+            <p class="lead">
+                <a href="{% url 'complaints:add-complaint' %}" class="btn btn-dark btn-md" role="button">Add Complaint</a>
+            </p>
+        </div>
     {% endfor %}
+
+    <style>
+        .empty{
+            margin: 0 1%;
+            padding: 5%;
+        }
+    </style>
 
     <script>
         const nav = document.getElementById("view_complaint")

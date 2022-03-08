@@ -18,14 +18,15 @@ class MyUserAdmin(UserAdmin):
             {
                 'fields': (
                     'is_student',
-                    'is_security'
+                    'is_security',
+                    'campus_status'
                 )
             }
         )
     )
 
     list_display = ['username', 'email']
-    list_filter = ['is_student', 'is_security']
+    list_filter = ['is_student', 'is_security', 'campus_status']
     search_fields = ['username']
 
 class ProfileAdmin(admin.ModelAdmin):

@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'users',
     'rooms',
     'complaints',
+    'leave_management',
 ]
 
 MIDDLEWARE = [

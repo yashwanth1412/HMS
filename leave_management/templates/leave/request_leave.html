@@ -1,0 +1,47 @@
+{% extends "users/layout.html" %}
+
+{% block content %}
+    {% if applied %}
+        <div class="jumbotron msg">
+            <h1 class="display-4">Leave Application #{{application.id}}</h1>
+            <p class="lead">Your leave request for {{application.from_date}} to {{application.to_date}} is being processed.</p>
+        </div>
+    {% else %}
+        <form method="POST" action="{% url 'leave:request' %}">
+            {% csrf_token %}
+            {% for field in form %}
+                {% if forloop.last %}
+                    <div class="form-floating">
+                        <textarea class="form-control" name="reason" placeholder="Give your reason here" required id="id_reason" style="height: 100px"></textarea>
+                        <label for="floatingTextarea2">{{field.label}}</label>
+                    </div>
+                {% else %}
+                    <label class="form-label"> {{field.label}} </label>
+                    {{field}}
+                {% endif %}
+                {% for error in field.errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error | escape }}</strong>
+                    </div> 
+                {% endfor %}
+            {% endfor %}
+            <input type="submit" value="Apply" class="btn btn-info">
+        </form>
+    {% endif %}
+
+    <style>
+        form{
+            margin: 2%;
+        }
+
+        input, textarea{
+            margin: .5% 0;
+            -webkit-margin-collapse: collapse;
+        }
+
+        .msg{
+            margin: 0 1%;
+            padding: 5%;
+        }
+    </style>
+{% endblock %}

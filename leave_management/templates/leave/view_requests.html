@@ -1,0 +1,54 @@
+{% extends "users/layout.html" %}
+{% block content %}
+    
+    {% for application in applications %}
+        {% if forloop.first %}
+            <div>
+                <a href="{% url 'leave:request' %}" class="btn btn-dark" style="float:right; margin: 0 1% 0 0">Apply for leave</a>
+            </div>
+        {% endif %}
+        <div class="requests" style="margin: 1%;">
+            {% if application.status == "pending" %}
+                <div class="card text-white bg-info w-75" style="margin: 0 0 0 .5%;">
+            {% elif application.status == "accepted" %}
+                <div class="card text-white bg-success w-75" style="margin: 0 0 0 .5%;">
+            {% else %}
+                <div class="card text-white bg-danger w-75" style="margin: 0 0 0 .5%;">
+            {% endif %}
+                <div class="card-header" style="color: black;display: flex; justify-content: space-between">
+                    <h5>Leave Application Id# {{application.id}}</h5>
+                    <small style:"right:0;">Status: {{ application.status.capitalize }}</small>
+                </div>
+                <div class="card-body" style="color: black;">
+                    <h5 class="card-title">Leave from {{application.from_date}} to {{application.to_date}}</h5>
+                    <p class="card-text">{{application.reason}}</p>
+                    {% if application.remarks %}
+                    <hr>
+                    <div> <strong>Remarks : </strong>{{application.remarks}} </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="jumbotron empty">
+            <h1 class="display-4">No requests</h1>
+            <p class="lead">You haven't applied for leave yet.</p>
+            <p class="lead">
+                <a href="{% url 'leave:request' %}" class="btn btn-primary btn-md" role="button">Apply for leave</a>
+            </p>
+        </div>
+    {% endfor %}
+
+    <style>
+        .empty{
+            margin: 0 1%;
+            padding: 5%;
+        }
+    </style> 
+
+    <script>
+        const nav = document.getElementById("view_request")
+        nav.classList.add("active")
+    </script>
+
+{% endblock %}

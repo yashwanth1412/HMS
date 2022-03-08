@@ -9,9 +9,15 @@ from django.conf import settings
 
 from rooms.models import Room
 
+STATUS = (
+    ('on_campus', 'On Campus'),
+    ('off_campus', 'Off Campus')
+)
+
 class MyUser(AbstractUser):
     is_student = models.BooleanField(default=False)
     is_security = models.BooleanField(default=False)
+    campus_status = models.CharField(max_length=20, choices=STATUS, default="on_campus")
 
     objects = UserManager()
 
