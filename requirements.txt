@@ -2,3 +2,4 @@ Django
 django-allauth
 python-dotenv
 Pillow
+django-multiselectfield

@@ -48,10 +48,12 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'multiselectfield',
     'users',
     'rooms',
     'complaints',
     'leave_management',
+    'mess'
 ]
 
 MIDDLEWARE = [

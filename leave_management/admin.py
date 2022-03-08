@@ -23,6 +23,9 @@ class LeaveApplicationAdmin(admin.ModelAdmin):
             return ['user', 'reason', 'from_date', 'to_date', 'created_at']
         else:
             return []
+    
+    class Media:
+        js = ('js/alert.js',)
 
 class StudentStaffInOutRecordsAdmin(admin.ModelAdmin):
     form = StudentStaffInOutRecordsAdminForm
@@ -35,6 +38,9 @@ class StudentStaffInOutRecordsAdmin(admin.ModelAdmin):
             return ['user', 'type', 'request', 'time']
         else:
             return []
+
+    class Media:
+        js = ('js/alert.js',)
 
 class VisitorListFilter(admin.SimpleListFilter):
     title = 'Vacancy'
@@ -63,6 +69,9 @@ class VisitorRecordsAdmin(admin.ModelAdmin):
             return ['name', 'reason', 'phone_number', 'check_in']
         else:
             return []
+    
+    class Media:
+        js = ('js/alert.js',)
 
 admin.site.register(LeaveApplication, LeaveApplicationAdmin)
 admin.site.register(StudentStaffInOutRecords, StudentStaffInOutRecordsAdmin)
