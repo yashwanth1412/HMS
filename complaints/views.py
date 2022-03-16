@@ -8,6 +8,9 @@ from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from .models import Complaint
 from .forms import ComplaintForm
+
+from django.http import HttpResponse
+
 # Create your views here.
 @method_decorator(login_required, name='dispatch')
 class ComplaintView(View):
