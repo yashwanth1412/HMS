@@ -1,4 +1,4 @@
-{% extends "users/layout.html" %}
+{% extends request.user.is_staff|yesno:"security_user/layout.html,users/layout.html" %}
 {% block content %}
     
     {% for application in applications %}
@@ -22,6 +22,28 @@
                 <div class="card-body" style="color: black;">
                     <h5 class="card-title">Leave from {{application.from_date}} to {{application.to_date}}</h5>
                     <p class="card-text">{{application.reason}}</p>
+                    {% if application.status == "pending" %}
+                        <a href="{% url 'leave:edit' application.pk %}" 
+                            class="btn btn-dark"
+                        >
+                            Edit
+                        </a>
+                        <a href="{% url 'leave:delete' application.pk %}" 
+                            class="btn btn-danger" 
+                            onclick="return confirm('Are you sure');"
+                        >
+                            Delete
+                        </a>
+                    {% elif application.status == "accepted" and application.outpass_valid %}
+                        {% if not application.in_out_record %}
+                            <a href="{% url 'leave:apply_pass' application.pk %}" 
+                                class="btn btn-primary" 
+                                onclick="return confirm('Are you sure');"
+                            >
+                                Apply for out pass
+                            </a>
+                        {% endif %}
+                    {% endif %}
                     {% if application.remarks %}
                     <hr>
                     <div> <strong>Remarks : </strong>{{application.remarks}} </div>
@@ -29,7 +51,7 @@
                 </div>
             </div>
         </div>
-    {% empty %}
+    {% empty %} 
         <div class="jumbotron empty">
             <h1 class="display-4">No requests</h1>
             <p class="lead">You haven't applied for leave yet.</p>

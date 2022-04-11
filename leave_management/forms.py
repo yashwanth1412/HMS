@@ -47,14 +47,16 @@ class StudentStaffInOutRecordsAdminForm(forms.ModelForm):
         cleaned_data = super().clean()
         if cleaned_data.get('type') == 'out':
             request = cleaned_data.get('request')
-            if not request:
-                raise forms.ValidationError("Valid request is required for going out.")
-            elif cleaned_data.get('user') != request.user:
-                raise forms.ValidationError("Invalid request.")
-            elif request.status != "accepted" :
-                raise forms.ValidationError("Not allowed since request is not accepted")
-            elif not (request.from_date <= cleaned_data.get('time').date() and cleaned_data.get('time').date() <= request.to_date):
-                raise forms.ValidationError(f"Request is not valid for {cleaned_data.get('time')}")
+            reason = cleaned_data.get('reason')
+            if not request and not reason:
+                raise forms.ValidationError("Valid request or reason is required for going out.")
+            if request:
+                if cleaned_data.get('user') != request.user:
+                    raise forms.ValidationError("Invalid request.")
+                elif request.status != "accepted" :
+                    raise forms.ValidationError("Not allowed since request is not accepted")
+                elif not (request.from_date <= cleaned_data.get('time').date() and cleaned_data.get('time').date() <= request.to_date):
+                    raise forms.ValidationError(f"Request is not valid for {cleaned_data.get('time')}")
 
 class VisitorRecordsAdminForm(forms.ModelForm):
     class Meta:

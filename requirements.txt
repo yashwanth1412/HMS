@@ -3,3 +3,4 @@ django-allauth
 python-dotenv
 Pillow
 django-multiselectfield
+django-simple-history

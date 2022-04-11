@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth import get_user_model
 from django.core.validators import RegexValidator
+from simple_history.models import HistoricalRecords
 
 User = get_user_model()
 
@@ -29,17 +30,28 @@ TYPE = (
     ('out', 'Out')
 )
 
+PASS_STATUS = (
+    ('draft', 'Draft'),
+    ('done', 'Done')
+)
+
 class StudentStaffInOutRecords(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     type = models.CharField(max_length=20, choices=TYPE, default="in")
-    request = models.OneToOneField(LeaveApplication, null=True, blank=True, on_delete=models.SET_NULL)
+    status = models.CharField(max_length=20, choices=PASS_STATUS, default="draft")
+    request = models.OneToOneField(LeaveApplication, null=True, blank=True, on_delete=models.SET_NULL, related_name="in_out_record")
+    reason = models.TextField(null=True, blank=True)
     time = models.DateTimeField(default= timezone.now)
+
+    history = HistoricalRecords()
 
     class Meta:
         verbose_name = "Student Staff InOut Records"
         verbose_name_plural = "Student Staff InOut Records"
 
     def __str__(self):
+        if self.status == "draft":
+            return f"{self.user} applied for outpass"
         if self.type == 'in':
             return f"{self.user} came in to the campus at {self.time}"
         else:

@@ -30,6 +30,8 @@ class LoginView(View):
         if user is not None:
             login(request, user)
             messages.success(request, f"Successfully logged in as {username}")
+            if user.is_staff:
+                return redirect(reverse("security:view"))
             return redirect(reverse(self.reverse_url))
 
         messages.error(request, 'Invalid Username or Password')

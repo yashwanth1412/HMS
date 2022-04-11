@@ -1,0 +1,35 @@
+{% extends request.user.is_staff|yesno:"security_user/layout.html,users/layout.html" %}
+{% block content %}
+    <form method="POST" action="{% url 'leave:edit' leave_app.id %}" id='form'>
+        {% csrf_token %}
+        {% for field in form %}
+            {% if forloop.last %}
+                <div class="form-floating">
+                    <textarea class="form-control" name="reason" placeholder="Give your reason here" required id="id_reason" 
+                        style="height: 100px">{{leave_app.reason}}</textarea>
+                    <label for="floatingTextarea2">{{field.label}}</label>
+                </div>
+            {% else %}
+                <label>{{field.label}}</label>
+                {{field}}
+            {% endif %}
+            {% for error in field.errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ error | escape }}</strong>
+                </div> 
+            {% endfor %}
+        {% endfor %}
+        <input type="submit" value="Edit" class="btn btn-info">
+    </form>
+
+    <style>
+        form{
+            margin: 2%;
+        }
+
+        input, textarea{
+            margin: .5% 0;
+            -webkit-margin-collapse: collapse;
+        }
+    </style>
+{% endblock %}

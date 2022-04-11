@@ -29,12 +29,14 @@ class LeaveApplicationAdmin(admin.ModelAdmin):
 
 class StudentStaffInOutRecordsAdmin(admin.ModelAdmin):
     form = StudentStaffInOutRecordsAdminForm
-    list_filter = ['type']
+    list_filter = ['type', 'status']
     raw_id_fields = ['request']
     autocomplete_fields = ['user']
 
     def get_readonly_fields(self, request, obj=None):
         if obj:
+            if obj.status == "draft":
+                return ['user', 'type', 'request']
             return ['user', 'type', 'request', 'time']
         else:
             return []

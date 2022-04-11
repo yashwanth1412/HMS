@@ -6,7 +6,7 @@ from users.models import MyUser
 from .models import LeaveApplication, StudentStaffInOutRecords
 
 @receiver(post_save, sender=LeaveApplication)
-def create_profile(sender, instance, created, **kwargs):
+def send_leave_mail(sender, instance, created, **kwargs):
     if created:
         staff = MyUser.objects.filter(is_superuser=True)
         emails = [i.email for i in staff]
@@ -41,11 +41,19 @@ def create_profile(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=StudentStaffInOutRecords)
 def changestatus(sender, instance, created, **kwargs):
-    if instance.type == "in":
-        instance.user.campus_status="on_campus"
-        instance.user.save()
+    # print(instance.history.all().last().history_user)
+    # print(instance.history.all().last().history_user.is_staff)
+    # if instance.status == "draft" and instance.history.all().last().history_user.is_staff:
+    #     instance.status = "done"
+    #     instance.save()
 
-    else:
-        instance.user.campus_status="off_campus"
-        instance.user.save()
+    if instance.status == 'done':
+        if instance.type == "in":
+            instance.user.campus_status="on_campus"
+            instance.user.save()
+
+        else:
+            instance.user.campus_status="off_campus"
+            instance.user.save()
+    
     

@@ -1,4 +1,4 @@
-{% extends "users/layout.html" %}
+{% extends request.user.is_staff|yesno:"security_user/layout.html,users/layout.html" %}
 {% block content %}
     <h1>{{ msg }}</h1>
 
