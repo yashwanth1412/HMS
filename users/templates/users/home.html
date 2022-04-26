@@ -1,6 +1,54 @@
 {% extends request.user.is_staff|yesno:"security_user/layout.html,users/layout.html" %}
+{% load static %}
+
+{% block head %}
+<link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+/>
+{% endblock %}
+
 {% block content %}
-    <h1>{{ msg }}</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mb-4">
+                <div class="card" style="width: 20rem;margin:1%">
+                    <img class="card-img-top" src="{% static 'users/pics/Hostl.JPG' %}" alt="Card image cap">
+                    <div class="card-body">
+                    <p class="card-text">Tungabhadra Hostel</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <div class="card" style="width: 20rem;margin:1%">
+                    <img class="card-img-top" src="{% static 'users/pics/Basketballcourt.JPG' %}" alt="Card image cap">
+                    <div class="card-body">
+                        <p class="card-text">Basket ball court present in the Hostel</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 mb-4">
+                <div class="card" style="width: 20rem;margin:1%">
+                    <img class="card-img-top" src="{% static 'users/pics/room.jpg' %}" alt="Card image cap">
+                    <div class="card-body">
+                    <p class="card-text">Rooms in the hostel</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <div class="card" style="width: 20rem;margin:1%;">
+                    <img class="card-img-top" src="{% static 'users/pics/gym.jpg' %}" alt="Card image cap">
+                    <div class="card-body">
+                    <p class="card-text">Gym present in the hostel</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         const nav = document.getElementById("home")

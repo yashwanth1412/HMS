@@ -37,14 +37,11 @@ class LoginView(View):
         messages.error(request, 'Invalid Username or Password')
         return redirect(reverse("users:login"))
 
-@method_decorator(login_required, name='dispatch')
 class HomeView(View):
     template_name = 'users/home.html'
 
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name, {
-            "msg" : f"Hello {request.user.username}"
-        })
+        return render(request, self.template_name, {})
 
 @method_decorator(login_required, name='dispatch')
 class ProfileView(View):
