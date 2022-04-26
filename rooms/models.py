@@ -1,9 +1,12 @@
 from django.db import models
 from django.core.validators import MinValueValidator
+from django.conf import settings
 
 # Create your models here.
 class Hostel(models.Model):
     name =  models.CharField(max_length=20, unique=True)
+    warden = models.OneToOneField(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL, related_name="warden_hostel")
+    representative = models.OneToOneField('users.Profile', null=True, blank=True, on_delete=models.SET_NULL, related_name="rep_hostel")
 
     def __str__(self):
         return f"{self.name} block"

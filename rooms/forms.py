@@ -16,7 +16,7 @@ class HostelAdminForm(forms.ModelForm):
 
     class Meta:
         model = Hostel
-        fields = ['name', 'room_options', 'start_room', 'end_room']
+        fields = ['name', 'warden', 'representative', 'room_options', 'start_room', 'end_room']
 
     def clean(self):
         if self.cleaned_data.get('start_room') and self.cleaned_data.get('end_room'):

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import MyUser, Profile
+from .models import MyUser, Profile, UserRoles
 from .forms import MyUserCreationForm, ProfileAdminForm
 # register your models
 
@@ -19,7 +19,8 @@ class MyUserAdmin(UserAdmin):
                 'fields': (
                     'is_student',
                     'is_security',
-                    'campus_status'
+                    'campus_status',
+                    'my_role'
                 )
             }
         )
@@ -43,4 +44,4 @@ class ProfileAdmin(admin.ModelAdmin):
 
 admin.site.register(MyUser, MyUserAdmin)
 admin.site.register(Profile, ProfileAdmin)
-
+admin.site.register(UserRoles)

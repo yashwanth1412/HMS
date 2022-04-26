@@ -14,11 +14,22 @@ STATUS = (
     ('off_campus', 'Off Campus')
 )
 
+class UserRoles(models.Model):
+    name = models.CharField(max_length=30, unique=True)
+    description = models.TextField(null=True, blank=True)
+
+    class Meta:
+        verbose_name = "User Roles"
+        verbose_name_plural = "User Roles"
+
+    def __str__(self):
+        return self.name
+
 class MyUser(AbstractUser):
     is_student = models.BooleanField(default=False)
     is_security = models.BooleanField(default=False)
     campus_status = models.CharField(max_length=20, choices=STATUS, default="on_campus")
-
+    my_role = models.ForeignKey(UserRoles, null=True, blank=True, related_name="r_users", on_delete=models.SET_NULL) 
     objects = UserManager()
 
     class Meta:

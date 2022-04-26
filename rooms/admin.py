@@ -7,6 +7,7 @@ from users.models import Profile
 class HostelAdmin(admin.ModelAdmin):
     form = HostelAdminForm
     search_fields = ['name']
+    autocomplete_fields = ['warden', 'representative']
 
     class Media:
         js = ('js/alert.js',)
