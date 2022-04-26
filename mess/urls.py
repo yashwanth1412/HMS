@@ -3,4 +3,6 @@ from . import views
 
 app_name = "mess"
 
-urlpatterns = []
+urlpatterns = [
+    path('menu', views.menu, name="menu"),
+]

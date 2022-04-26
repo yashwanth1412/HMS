@@ -43,6 +43,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'leave:view' %}" id="view_request">View Leave Requests</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'mess:menu' %}" id="menu">Mess</a>
+                    </li>
                     <li class="nav-item" style="position: absolute; right: 1%;">
                         {% if request.user.is_authenticated %}
                             <a class="nav-link" href="{% url 'users:logout' %}">LogOut</a>
