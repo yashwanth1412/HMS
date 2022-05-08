@@ -30,17 +30,24 @@ class MyUserAdmin(UserAdmin):
     list_filter = ['is_student', 'is_security', 'campus_status']
     search_fields = ['username']
 
+    def has_change_permission(self, request, obj=None):
+        return request.user.is_superuser
+
 class ProfileAdmin(admin.ModelAdmin):
     form = ProfileAdminForm
-    fields = ['user', 'room', 'rollno']
+    fields = ['user', 'room', 'rollno', 'gender', 'contact_no', 'address', 'emergency_contact_name', 'emergency_contact_phone_no']
     search_fields = ['rollno']
     autocomplete_fields = ('room',)
+    list_filter = ['room__hostel']
 
     def get_readonly_fields(self, request, obj=None):
         if obj:
             return ['user']
         else:
             return []
+
+    def has_change_permission(self, request, obj=None):
+        return request.user.is_superuser
 
 admin.site.register(MyUser, MyUserAdmin)
 admin.site.register(Profile, ProfileAdmin)

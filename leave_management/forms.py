@@ -13,13 +13,15 @@ class LeaveApplicationAdminForm(forms.ModelForm):
         start_date = cleaned_data.get("from_date")
         if start_date < datetime.date.today():
             raise forms.ValidationError("Start date should be greater than or equal to today.")
+        return start_date
     
     def clean_to_date(self):
         cleaned_data = super().clean()
         start_date = cleaned_data.get("from_date")
         end_date = cleaned_data.get("to_date")
-        if end_date < start_date:
+        if end_date and start_date and end_date < start_date:
             raise forms.ValidationError("End date should be greater than start date.")
+        return end_date
 
 class LeaveApplicationForm(forms.ModelForm):
     from_date = forms.DateField(widget=forms.DateInput(attrs={'class': "form-control", 'type': 'date'}))
@@ -33,10 +35,10 @@ class LeaveApplicationForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
         start_date = cleaned_data.get("from_date")
-        if start_date < datetime.date.today():
+        if start_date and start_date < datetime.date.today():
             raise forms.ValidationError("Start date should be greater than or equal to today.")
         end_date = cleaned_data.get("to_date")
-        if end_date < start_date:
+        if end_date and end_date < start_date:
             raise forms.ValidationError("End date should be greater than start date.")
 
 class StudentStaffInOutRecordsAdminForm(forms.ModelForm):

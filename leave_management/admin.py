@@ -24,6 +24,9 @@ class LeaveApplicationAdmin(admin.ModelAdmin):
         else:
             return []
     
+    def has_change_permission(self, request, obj=None):
+        return request.user.is_superuser
+    
     class Media:
         js = ('js/alert.js',)
 

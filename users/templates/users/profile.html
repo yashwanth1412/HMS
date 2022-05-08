@@ -23,6 +23,43 @@
                 Your request to change room is being processed
             </button>
         {% endif %}
+    
+        <div class="editprofile">
+            <h3>Details:</h3>
+            <form method="POST" action="{% url 'users:profile' %}" id='form'>
+                {% csrf_token %}
+                {% for field in editform %}
+
+                    {% if forloop.counter == 2 %}
+                        <div class="form-floating">
+                            <textarea class="form-control" name="address" placeholder="Enter your address here" required id="id_address" 
+                            style="height: 100px"> {{request.user.profile.address}}
+                            </textarea>
+                            <label for="floatingTextarea2">{{field.label}}</label>
+                        </div>
+                    {% comment %} {% elif forloop.counter == 3 %}
+                        <label>{{field.label}}</label>
+                        <select name="gender" id="id_gender" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                            <option value="male" selected>Male</option>
+                            <option value="female">Female</option>
+                            <option value="others">Others</option>
+                        </select> {% endcomment %}
+                    {% else %}
+                        <div>
+                            <label>{{field.label}}</label>
+                            {{field}}
+                        </div>
+                    {% endif %}
+                    
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{ error | escape }}</strong>
+                        </div> 
+                    {% endfor %}
+                {% endfor %}
+                <input type="submit" value="Edit" class="btn btn-info">
+            </form>
+        </div>
     </div>
       
       <!-- Modal -->
@@ -74,6 +111,10 @@
 
         #form-save{
             display: none;
+        }
+
+        .editprofile{
+            margin-top: 1%;
         }
     </style>
 

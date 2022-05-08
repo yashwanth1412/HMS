@@ -23,3 +23,12 @@ class ProfileAdminForm(forms.ModelForm):
 class ProfileForm(forms.Form):
     room = forms.CharField(widget=forms.TextInput(attrs={'class': "form-control", 'required' : False}))
     rollno = forms.CharField(widget=forms.TextInput(attrs={'class': "form-control"}))
+
+class ProfileEditForm(forms.ModelForm):
+    contact_no = forms.CharField(widget=forms.TextInput(attrs={'class': "form-control"}))
+    emergency_contact_name = forms.CharField(widget=forms.TextInput(attrs={'class': "form-control"}))
+    emergency_contact_phone_no = forms.CharField(widget=forms.TextInput(attrs={'class': "form-control"}))
+
+    class Meta:
+        model = Profile
+        fields = ['contact_no', 'address', 'gender', 'emergency_contact_name', 'emergency_contact_phone_no']

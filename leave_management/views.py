@@ -47,6 +47,8 @@ class LeaveApplicationRequestView(View):
             s.save()
             messages.success(request, "Successfully requested for leave")
             return redirect(reverse('leave:request'))
+
+        print(form.errors)
         
         messages.error(request, form.errors)
         return render(request, self.template_name, {

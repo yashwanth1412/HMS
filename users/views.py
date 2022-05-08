@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.views import View
 from django.contrib import messages
 from django.views.decorators.cache import never_cache
-from .forms import ProfileForm
+from .forms import ProfileForm, ProfileEditForm
 from rooms.forms import RequestChangeRoomForm
 from rooms.models import RequestChangeRoom
 
@@ -31,7 +31,7 @@ class LoginView(View):
             login(request, user)
             messages.success(request, f"Successfully logged in as {username}")
             if user.is_staff:
-                return redirect(reverse("security:view"))
+                return redirect(reverse("leave:view"))
             return redirect(reverse(self.reverse_url))
 
         messages.error(request, 'Invalid Username or Password')
@@ -47,6 +47,7 @@ class HomeView(View):
 class ProfileView(View):
     template_name = 'users/profile.html'
     profileform = ProfileForm
+    editform = ProfileEditForm
     requestroomform = RequestChangeRoomForm
 
     def get(self, request, *args, **kwargs):
@@ -58,8 +59,10 @@ class ProfileView(View):
         room = None
         if profile.room:
             room = f"{profile.room.hostel.name} - Room no: {profile.room.number}"
+        
         data = {'room': room, 'rollno': profile.rollno}
         profileform = self.profileform(initial=data)
+        editform = self.editform(instance=profile)
 
         requestroomform = self.requestroomform()
         check_request = RequestChangeRoom.objects.filter(student=profile, status="pending")
@@ -72,7 +75,23 @@ class ProfileView(View):
         return render(request, self.template_name, {
             "profileform" : profileform,
             "changerequest_exists" : exists,
-            "requestroomform" : requestroomform
+            "requestroomform" : requestroomform,
+            "editform" : editform
+        })
+    
+    def post(self, request, *args, **kwargs):
+        print(request.POST)
+        profile = request.user.profile
+        form = self.editform(request.POST, instance=profile)
+        if form.is_valid():
+            s = form.save(commit=False)
+            s.save()
+            messages.success(request, f"Successfully updated your details")
+            return redirect(reverse('users:profile'))
+        
+        messages.error(request, "Couldn't edit details")
+        return render(request, self.template_name, {
+            "editform" : form
         })
 
 class LogOutView(View):

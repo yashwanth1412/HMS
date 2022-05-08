@@ -53,6 +53,20 @@ class HostelAdminForm(forms.ModelForm):
                         else:
                             raise forms.ValidationError(f"Room doesnot exists")
 
+        if self.cleaned_data.get('representative'):
+            us = self.cleaned_data.get('representative')
+            rep = self.cleaned_data.get('representative').user
+            if rep.my_role:
+                if rep.my_role.name.lower() != "hostel representative":
+                    raise forms.ValidationError(f"Only a user whose role is hostel rep can be assigned")
+                else:
+                    try:
+                        if us.rep_hostel:
+                            raise forms.ValidationError(f"The representative has already been allocated for {us.rep_hostel.name} block")
+                    except:
+                        return self.cleaned_data
+            raise forms.ValidationError(f"Only a user whose role is hostel rep can be assigned")
+
         return self.cleaned_data
 
 class RoomAdminForm(forms.ModelForm):

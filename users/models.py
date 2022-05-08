@@ -4,6 +4,7 @@ from allauth.account.signals import user_signed_up
 # from allauth.socialaccount.signals import pre_social_login
 # from allauth.account.utils import perform_login
 from django.dispatch import receiver
+from django.core.validators import RegexValidator
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.conf import settings
 
@@ -38,10 +39,31 @@ class MyUser(AbstractUser):
     def __str__(self):
         return self.username
 
+phone_validator = RegexValidator('^[0-9]{10}$')
+
+SEX = (
+    ('male', 'Male'),
+    ('female', 'Female'),
+    ('others', 'Others')
+)
+
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name="profile", on_delete=models.CASCADE)
     room = models.ForeignKey(Room, null=True, blank=True, related_name="students", on_delete=models.SET_NULL)
-    rollno = models.CharField(max_length=10, unique=True)
+    rollno = models.CharField(max_length=20, unique=True)
+    contact_no = models.CharField(
+                        max_length=10,
+                        validators=[phone_validator],
+                        null=True
+                    )
+    address = models.TextField()
+    gender = models.CharField(max_length=20, choices=SEX, default="male")
+    emergency_contact_name = models.CharField(max_length=20, null=True)
+    emergency_contact_phone_no = models.CharField(
+                        max_length=10,
+                        validators=[phone_validator],
+                        null=True
+                    )
 
     def save(self, *args, **kwargs):
         if self.room:
