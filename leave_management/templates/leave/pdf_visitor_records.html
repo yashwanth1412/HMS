@@ -1,0 +1,31 @@
+<h2>Visitor Records</h2>
+
+{% for record in records %}
+    <div>
+        <strong>Name of the visitor: </strong>
+        {{record.name}}
+    </div>
+    {% if record.phone_number %}
+        <div>
+            <strong>Phone number: </strong>
+            {{record.phone_number}}
+        </div>
+    {% endif %}
+    {% if record.reason %}
+        <div>
+            <strong>Reason of their visit: </strong>
+            {{record.reason}}
+        </div>
+    {% endif %}
+    <div>
+        <strong>Check in time: </strong>
+        {{record.check_in}}
+    </div>
+    <div>
+        <strong>Check out time: </strong>
+        {{record.check_out}}
+    </div>
+
+    <hr>
+    
+{% endfor %}

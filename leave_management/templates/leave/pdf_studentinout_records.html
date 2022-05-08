@@ -1,0 +1,31 @@
+<h2>Student staff in out records</h2>
+
+{% for record in records %}
+    <div>
+        <strong>User: </strong>
+        {{record.user.username}}
+    </div>
+    <div>
+        <strong>Type: </strong>
+        {{record.type}}
+    </div>
+    {% if record.request %}
+        <div>
+            <strong>Request id: </strong>
+            {{record.request.id}}
+        </div>
+    {% endif %}
+    {% if record.reason %}
+        <div>
+            <strong>Reason: </strong>
+            {{record.reason}}
+        </div>
+    {% endif %}
+    <div>
+        <strong>Time: </strong>
+        {{record.time}}
+    </div>
+
+    <hr>
+    
+{% endfor %}

@@ -1,0 +1,5 @@
+{% extends "admin/change_list.html" %}
+{% block object-tools %}
+    <a href="{% url 'leave:download-studentinout-records' %}"> Download student staff in out records </a>
+    {{block.super}}
+{% endblock object-tools %}

@@ -6,9 +6,15 @@ from django.views.decorators.cache import never_cache
 from django.shortcuts import get_object_or_404
 from django.views import View
 from django.contrib import messages
-from .models import LeaveApplication, StudentStaffInOutRecords
+from django.core.exceptions import PermissionDenied
+from .models import LeaveApplication, StudentStaffInOutRecords, VisitorRecords
 from .forms import LeaveApplicationForm
 from datetime import datetime
+
+import io
+from xhtml2pdf import pisa
+from django.template.loader import get_template
+from django.http import HttpResponse
 
 # Create your views here.
 @method_decorator(login_required, name='dispatch')
@@ -140,3 +146,38 @@ def apply_outpass(request, id):
         messages.success(request, "Successfully applied outpass")
     
     return redirect(reverse("leave:view"))
+
+def render_to_pdf(template_src, context_dict):
+    template = get_template(template_src)
+    html  = template.render(context_dict)
+    result = io.BytesIO()
+    pdf = pisa.pisaDocument(io.BytesIO(html.encode("ISO-8859-1")), result)
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), content_type='application/pdf')
+    return
+
+def render_to_pdf2(template_src, context_dict):
+    template = get_template(template_src)
+    html  = template.render(context_dict)
+    result = io.BytesIO()
+    pdf = pisa.pisaDocument(io.BytesIO(html.encode("utf-8")), result)
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), content_type='application/pdf')
+    return
+
+@login_required
+def download_visitor_records(request):
+    if not request.user.is_staff:
+        raise PermissionDenied()
+    
+    records = VisitorRecords.objects.all().order_by('check_in')
+    return render_to_pdf('leave/pdf_visitor_records.html', {"records" : records})
+
+@login_required
+def download_studentinout_records(request):
+    if not request.user.is_staff:
+        raise PermissionDenied()
+    
+    records = StudentStaffInOutRecords.objects.all().order_by('time')
+    return render_to_pdf2('leave/pdf_studentinout_records.html', {"records" : records})
+    

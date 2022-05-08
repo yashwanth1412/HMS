@@ -36,6 +36,8 @@ class StudentStaffInOutRecordsAdmin(admin.ModelAdmin):
     raw_id_fields = ['request']
     autocomplete_fields = ['user']
 
+    change_list_template = 'admin/studentstaffinoutrecords/studentstaffinoutrecords_change_list.html'
+
     def get_readonly_fields(self, request, obj=None):
         if obj:
             if obj.status == "draft":
@@ -68,6 +70,8 @@ class VisitorListFilter(admin.SimpleListFilter):
 class VisitorRecordsAdmin(admin.ModelAdmin):
     form = VisitorRecordsAdminForm
     list_filter = [VisitorListFilter]
+    change_list_template = 'admin/visitorrecords/visitorrecords_change_list.html'
+
 
     def get_readonly_fields(self, request, obj=None):
         if obj:
