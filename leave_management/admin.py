@@ -20,7 +20,7 @@ class LeaveApplicationAdmin(admin.ModelAdmin):
 
     def get_readonly_fields(self, request, obj=None):
         if obj:
-            return ['user', 'reason', 'from_date', 'to_date', 'created_at']
+            return ['user', 'reason', 'from_date', 'to_date', 'contact_no', 'destination', 'created_at']
         else:
             return []
     

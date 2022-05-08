@@ -10,7 +10,12 @@
         <form method="POST" action="{% url 'leave:request' %}">
             {% csrf_token %}
             {% for field in form %}
-                {% if forloop.last %}
+                {% if forloop.counter == 3 %}
+                <div class="form-floating">
+                    <textarea class="form-control" name="destination" placeholder="Enter your destination here" required id="id_destination" style="height: 100px"></textarea>
+                    <label for="floatingTextarea2">{{field.label}}</label>
+                </div>
+                {% elif forloop.last %}
                     <div class="form-floating">
                         <textarea class="form-control" name="reason" placeholder="Give your reason here" required id="id_reason" style="height: 100px"></textarea>
                         <label for="floatingTextarea2">{{field.label}}</label>

@@ -6,6 +6,8 @@ from simple_history.models import HistoricalRecords
 
 User = get_user_model()
 
+phone_validator = RegexValidator('^[0-9]{10}$')
+
 STATUS = (
     ('pending', 'Pending'),
     ('accepted', 'Accept'),
@@ -16,6 +18,12 @@ STATUS = (
 class LeaveApplication(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     reason = models.TextField()
+    destination = models.TextField()
+    contact_no = models.CharField(
+                        max_length=10,
+                        validators=[phone_validator],
+                        null=True
+                    )
     from_date = models.DateField()
     to_date = models.DateField()
     status = models.CharField(max_length=20, choices=STATUS, default="pending")
@@ -56,8 +64,6 @@ class StudentStaffInOutRecords(models.Model):
             return f"{self.user} came in to the campus at {self.time}"
         else:
             return f"{self.user} went out of the campus at {self.time}"
-
-phone_validator = RegexValidator('^[0-9]{10}$')
 
 class VisitorRecords(models.Model):
     name = models.CharField(max_length=30)

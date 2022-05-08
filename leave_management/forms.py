@@ -24,10 +24,11 @@ class LeaveApplicationAdminForm(forms.ModelForm):
 class LeaveApplicationForm(forms.ModelForm):
     from_date = forms.DateField(widget=forms.DateInput(attrs={'class': "form-control", 'type': 'date'}))
     to_date = forms.DateField(widget=forms.DateInput(attrs={'class': "form-control", 'type': 'date'}))
+    contact_no = forms.CharField(widget=forms.TextInput(attrs={'class': "form-control"}))
 
     class Meta:
         model = LeaveApplication
-        fields = ['from_date', 'to_date', 'reason']
+        fields = ['from_date', 'to_date', 'destination', 'contact_no', 'reason']
 
     def clean(self):
         cleaned_data = super().clean()
