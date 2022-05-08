@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+#from easy_pdf.rendering import render_to_pdf_response
 from .models import FoodItem
 from django.db.models import Q
 # Create your views here.
@@ -14,10 +14,14 @@ def menu(request):
         for ty in TYPES: 
             items[day][ty] = FoodItem.objects.filter(Q(days__contains=day) & Q(type__contains=ty))
 
-    for d, food_day in items.items():
-        print(d)
-        for x,y in food_day.items():
-            print(x)
-            print(y)
-    
     return render(request, "mess/menu.html", {"items" : items})
+
+def test_file(request):
+    pass
+#     items = {}
+#     for day in DAYS:
+#         items[day] = {}
+#         for ty in TYPES: 
+#             items[day][ty] = FoodItem.objects.filter(Q(days__contains=day) & Q(type__contains=ty))
+
+#     return render_to_pdf_response(request, 'mess/pdf_menu.html', {"items" : items})

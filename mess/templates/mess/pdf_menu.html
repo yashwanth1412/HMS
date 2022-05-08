@@ -1,0 +1,36 @@
+{% extends "easy_pdf/base.html" %}
+
+{% block content %}
+    <h2>Menu</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Day</th>
+                <th scope="col">Breakfast</th>
+                <th scope="col">Lunch</th>
+                <th scope="col">Snacks</th>
+                <th scope="col">Dinner</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for day, food_day in items.items %}
+                <tr>
+                    <th scope="row">{{day}}</th>
+                    {% for y, food_type in food_day.items %}
+                        <td>
+                            {% for x in food_type %}
+                                {% if forloop.last %}
+                                    {{x}}
+                                {% else %}
+                                    {{x}},
+                                {% endif %}
+                            {% empty %}
+                                -
+                            {% endfor %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

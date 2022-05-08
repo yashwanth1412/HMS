@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'multiselectfield',
     'simple_history',
+    'easy_pdf',
     'users',
     'rooms',
     'complaints',
