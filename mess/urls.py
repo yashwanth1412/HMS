@@ -5,5 +5,5 @@ app_name = "mess"
 
 urlpatterns = [
     path('menu', views.menu, name="menu"),
-    path('test', views.test_file, name="test")
+    path('download-menu', views.test_file, name="download-menu")
 ]

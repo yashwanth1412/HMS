@@ -5,4 +5,4 @@ Pillow
 django-multiselectfield
 django-simple-history
 reportlab
-django-easy-pdf
+xhtml2pdf
