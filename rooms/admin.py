@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.html import format_html
 from .models import Hostel, Room, RequestChangeRoom
 from .forms import HostelAdminForm, RoomAdminForm, RequestChangeRoomAdminForm
 from users.models import Profile
@@ -8,6 +9,8 @@ class HostelAdmin(admin.ModelAdmin):
     form = HostelAdminForm
     search_fields = ['name']
     autocomplete_fields = ['warden', 'representative']
+
+    change_list_template = "admin/hostel/hostel_change_list.html"
 
     class Media:
         js = ('js/alert.js',)
@@ -68,6 +71,13 @@ class RequestChangeRoomAdmin(admin.ModelAdmin):
     form = RequestChangeRoomAdminForm
     list_filter = ['status']
     raw_id_fields = ['allocate_room']
+    list_display = ['obj_disp']
+
+    def obj_disp(self, obj):
+        if obj.status == 'resolved':
+            color_code = '79b340'
+        html = '<span style="color: #{};">{}</span>'.format(color_code, f"{obj}")
+        return format_html(html)
 
     def get_readonly_fields(self, request, obj=None):
         if obj:

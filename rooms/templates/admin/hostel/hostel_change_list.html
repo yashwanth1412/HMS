@@ -1,0 +1,11 @@
+{% extends "admin/change_list.html" %}
+{% block object-tools %}
+    <div>
+        <a href="{% url 'rooms:layout' "Krishna"  %}"> Hostel layout of Krishna block </a>
+    <div>
+    
+    <div>
+        <a href="{% url 'rooms:layout' "Tungabhadra"  %}"> Hostel layout of Tungabhadra block </a>
+    <div>
+    {{block.super}}
+{% endblock object-tools %}

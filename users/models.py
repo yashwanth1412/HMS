@@ -54,15 +54,17 @@ class Profile(models.Model):
     contact_no = models.CharField(
                         max_length=10,
                         validators=[phone_validator],
-                        null=True
+                        null=True,
+                        blank=True
                     )
     address = models.TextField()
     gender = models.CharField(max_length=20, choices=SEX, default="male")
-    emergency_contact_name = models.CharField(max_length=20, null=True)
+    emergency_contact_name = models.CharField(max_length=20, null=True,blank=True)
     emergency_contact_phone_no = models.CharField(
                         max_length=10,
                         validators=[phone_validator],
-                        null=True
+                        null=True,
+                        blank=True
                     )
 
     def save(self, *args, **kwargs):

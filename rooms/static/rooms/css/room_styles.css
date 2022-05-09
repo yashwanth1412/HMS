@@ -1,0 +1,83 @@
+*{
+    box-sizing: border-box;
+}
+
+.container{
+    margin-top: 10vh;
+    width: 60%;
+}
+
+.floor{
+    background-color: snow;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 30px;
+    margin-bottom: 7%;
+}
+
+.left-wing{
+    width: 40%;
+}
+
+.right-wing{
+    width: 40%;
+}
+
+.top{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+}
+
+.bottom{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+}
+
+.room{
+    position: relative;
+    border: 2px solid black;
+    border-radius: 15px;
+    background-color: rgb(15, 189, 102);
+    padding-top: auto;
+    height: 3em;
+    width: 7em;
+    margin: 1em;
+    text-align: center;
+    font-weight: 400;
+    color: black;
+}
+
+.not_available{
+    background-color: red;
+}
+
+.partial_available{
+    background-color: rgb(233, 211, 19);
+}
+
+.room .tooltiptext {
+    visibility: hidden;
+    width: 200%;
+    background-color: rgba(18, 198, 243, 0.808);
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px;
+}
+
+.room:hover .tooltiptext {
+    visibility: visible;
+}
+
+hr{
+    border-top: 1px solid white;
+}

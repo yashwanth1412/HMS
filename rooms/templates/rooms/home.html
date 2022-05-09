@@ -1,0 +1,283 @@
+{% extends request.user.is_staff|yesno:"security_user/layout.html,users/layout.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'rooms/css/room_styles.css' %}">
+    <title>Rooms Layout</title>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1> {{hstl_name}} block: </h1>
+        <div class="floor">
+            <div class="left-wing">
+                <div class="top">
+                    {% if d2.6 == 0 %}
+                        <div class="btn room not_available" data-bs-toggle="modal" data-bs-target="#exampleMod7">{{f_rooms.6.number}}
+                    {% else %}
+                    <div class="btn room" data-bs-toggle="modal" data-bs-target="#exampleMod7">{{f_rooms.6.number}}
+                    {% endif %}
+                        <span class="tooltiptext">
+                            <div> No of beds: {{f_rooms.6.beds}} </div>
+                            <div>No of vacancies: {{ d2.6 }} </div>
+                        </span>
+                    </div>
+                    {% if d2.7 == 0 %}
+                        <div class="btn room not_available" data-bs-toggle="modal" data-bs-target="#exampleMod8">{{f_rooms.7.number}}
+                    {% else %}
+                    <div class="btn room" data-bs-toggle="modal" data-bs-target="#exampleMod8">{{f_rooms.7.number}}
+                        {% endif %}
+                        <span class="tooltiptext">
+                            <div> No of beds: {{f_rooms.7.beds}} </div>
+                            <div>No of vacancies: {{d2.7}} </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="bottom">
+                    {% if d2.5 == 0 %}
+                        <div class="btn room not_available" data-bs-toggle="modal" data-bs-target="#exampleMod6">{{2_rooms.5.number}}
+                    {% else %}
+                    <div class="btn room" data-bs-toggle="modal" data-bs-target="#exampleMod6">{{f_rooms.5.number}}
+                        {% endif %}
+                        <span class="tooltiptext">
+                            <div> No of beds: {{f_rooms.5.beds}} </div>
+                            <div>No of vacancies: {{d2.5}} </div>
+                        </span>
+                    </div>
+                    {% if d2.4 == 0 %}
+                        <div class="btn room not_available" data-bs-toggle="modal" data-bs-target="#exampleMod5">{{f_rooms.4.number}}
+                    {% else %}
+                    <div class="btn room" data-bs-toggle="modal" data-bs-target="#exampleMod5">{{f_rooms.4.number}}
+                        {% endif %}
+                        <span class="tooltiptext">
+                            <div> No of beds: {{f_rooms.4.beds}} </div>
+                            <div>No of vacancies: {{d2.4}} </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="right-wing">
+                <div class="top">
+                    {% if d2.0 == 0 %}
+                        <div class="btn room not_available" data-bs-toggle="modal" data-bs-target="#exampleMod1">{{f_rooms.0.number}}
+                    {% else %}
+                    <div class="btn room" data-bs-toggle="modal" data-bs-target="#exampleMod1">{{f_rooms.0.number}}
+                        {% endif %}
+                        <span class="tooltiptext">
+                            <div> No of beds: {{f_rooms.0.beds}} </div>
+                            <div>No of vacancies: {{d2.0}} </div>
+                        </span>
+                    </div>
+                    {% if d2.1 == 0 %}
+                        <div class="btn room not_available" data-bs-toggle="modal" data-bs-target="#exampleMod2">{{f_rooms.1.number}}
+                    {% else %}
+                    <div class="btn room" data-bs-toggle="modal" data-bs-target="#exampleMod2">{{f_rooms.1.number}}
+                        {% endif %}
+                        <span class="tooltiptext">
+                            <div> No of beds: {{f_rooms.1.beds}} </div>
+                            <div>No of vacancies: {{d2.1}} </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="bottom">
+                    {% if d2.3 == 0 %}
+                        <div class="btn room not_available" data-bs-toggle="modal" data-bs-target="#exampleMod4">{{f_rooms.3.number}}
+                    {% else %}
+                    <button class="btn room" data-bs-toggle="modal" data-bs-target="#exampleMod4"> {{f_rooms.3.number}}
+                        {% endif %}
+                        <span class="tooltiptext">
+                            <div> No of beds: {{f_rooms.3.beds}} </div>
+                            <div>No of vacancies: {{d2.3}} </div>
+                        </span>
+                    </button>
+                    {% if d2.2 == 0 %}
+                        <div class="btn room not_available" data-bs-toggle="modal" data-bs-target="#exampleMod3">{{f_rooms.2.number}}
+                    {% else %}
+                    <div class="btn room" data-bs-toggle="modal" data-bs-target="#exampleMod3">{{f_rooms.2.number}}
+                        {% endif %}
+                        <span class="tooltiptext">
+                            <div> No of beds: {{rooms.2.beds}} </div>
+                            <div>No of vacancies: {{d2.2}} </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="floor">
+            <div class="left-wing">
+                <div class="top">
+                    {% if d.6 == 0 %}
+                        <div class="btn room not_available" data-bs-toggle="modal" data-bs-target="#exampleModal7">{{rooms.6.number}}
+                    {% else %}
+                    <div class="btn room" data-bs-toggle="modal" data-bs-target="#exampleModal7">{{rooms.6.number}}
+                    {% endif %}
+                        <span class="tooltiptext">
+                            <div> No of beds: {{rooms.6.beds}} </div>
+                            <div>No of vacancies: {{ d.6 }} </div>
+                        </span>
+                    </div>
+                    {% if d.7 == 0 %}
+                        <div class="btn room not_available" data-bs-toggle="modal" data-bs-target="#exampleModal8">{{rooms.7.number}}
+                    {% else %}
+                    <div class="btn room" data-bs-toggle="modal" data-bs-target="#exampleModal8">{{rooms.7.number}}
+                        {% endif %}
+                        <span class="tooltiptext">
+                            <div> No of beds: {{rooms.7.beds}} </div>
+                            <div>No of vacancies: {{d.7}} </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="bottom">
+                    {% if d.5 == 0 %}
+                        <div class="btn room not_available" data-bs-toggle="modal" data-bs-target="#exampleModal6">{{rooms.5.number}}
+                    {% else %}
+                    <div class="btn room" data-bs-toggle="modal" data-bs-target="#exampleModal6">{{rooms.5.number}}
+                        {% endif %}
+                        <span class="tooltiptext">
+                            <div> No of beds: {{rooms.5.beds}} </div>
+                            <div>No of vacancies: {{d.5}} </div>
+                        </span>
+                    </div>
+                    {% if d.4 == 0 %}
+                        <div class="btn room not_available" data-bs-toggle="modal" data-bs-target="#exampleModal5">{{rooms.4.number}}
+                    {% else %}
+                    <div class="btn room" data-bs-toggle="modal" data-bs-target="#exampleModal5">{{rooms.4.number}}
+                        {% endif %}
+                        <span class="tooltiptext">
+                            <div> No of beds: {{rooms.4.beds}} </div>
+                            <div>No of vacancies: {{d.4}} </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="right-wing">
+                <div class="top">
+                    {% if d.0 == 0 %}
+                        <div class="btn room not_available" data-bs-toggle="modal" data-bs-target="#exampleModal1">{{rooms.0.number}}
+                    {% else %}
+                    <div class="btn room" data-bs-toggle="modal" data-bs-target="#exampleModal1">{{rooms.0.number}}
+                        {% endif %}
+                        <span class="tooltiptext">
+                            <div> No of beds: {{rooms.0.beds}} </div>
+                            <div>No of vacancies: {{d.0}} </div>
+                        </span>
+                    </div>
+                    {% if d.1 == 0 %}
+                        <div class="btn room not_available" data-bs-toggle="modal" data-bs-target="#exampleModal2">{{rooms.1.number}}
+                    {% else %}
+                    <div class="btn room" data-bs-toggle="modal" data-bs-target="#exampleModal2">{{rooms.1.number}}
+                        {% endif %}
+                        <span class="tooltiptext">
+                            <div> No of beds: {{rooms.1.beds}} </div>
+                            <div>No of vacancies: {{d.1}} </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="bottom">
+                    {% if d.3 == 0 %}
+                        <div class="btn room not_available" data-bs-toggle="modal" data-bs-target="#exampleModal4">{{rooms.3.number}}
+                    {% else %}
+                    <button class="btn room" data-bs-toggle="modal" data-bs-target="#exampleModal4">
+                        {{rooms.3.number}}
+                        {% endif %}
+                        <span class="tooltiptext">
+                            <div> No of beds: {{rooms.3.beds}} </div>
+                            <div>No of vacancies: {{d.3}} </div>
+                        </span>
+                    </button>
+                    {% if d.2 == 0 %}
+                        <div class="btn room not_available" data-bs-toggle="modal" data-bs-target="#exampleModal3">{{rooms.2.number}}
+                    {% else %}
+                    <div class="btn room" data-bs-toggle="modal" data-bs-target="#exampleModal3">{{rooms.2.number}}
+                        {% endif %}
+                        <span class="tooltiptext">
+                            <div> No of beds: {{rooms.2.beds}} </div>
+                            <div>No of vacancies: {{d.2}} </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% for room,d in upt_rooms %}
+
+    <div class="modal fade" id="exampleModal{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Allocate room {{room.number}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </button>
+            </div>
+            <form method="POST">
+                <div class="modal-body">
+                    <div style="text-align: center;font-weight: 400;"> No of beds: {{room.beds}} </div>
+                    <div style="text-align: center;font-weight: 400;">No of vacancies: {{d}}</div>
+                    {% for student in room.students.all %}
+                    <div>
+                        <label>Student {{forloop.counter}}:</label>
+                        <br>
+                        <input type="text" readonly value="{{student.user.username}}" style="border:0">
+                    </div>
+                    {% if not forloop.last %}
+                        <hr>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+
+    
+    {% endfor %}
+
+    {% for room,d in fpt_rooms %}
+
+    <div class="modal fade" id="exampleMod{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Allocate room {{room.number}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </button>
+            </div>
+            <form method="POST">
+                <div class="modal-body">
+                    <div style="text-align: center;font-weight: 400;"> No of beds: {{room.beds}} </div>
+                    <div style="text-align: center;font-weight: 400;">No of vacancies: {{d}}</div>
+                    {% for student in room.students.all %}
+                    <div>
+                        <label>Student {{forloop.counter}}:</label>
+                        <br>
+                        <input type="text" readonly value="{{student.user.username}}" style="border:0">
+                    </div>
+                    {% if not forloop.last %}
+                        <hr>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+
+    {% endfor %}
+    
+    <script>
+        $(window).on("load", e => {
+            $(".not_available").prop('disabled', true);
+    })
+    </script>
+{% endblock %}
