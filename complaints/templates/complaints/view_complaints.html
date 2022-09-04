@@ -14,7 +14,6 @@
                     <small style:"right:0;">Status: {{ complaint.status|yesno:"Resolved,Pending" }}</small>
                 </div>
                 <div class="card-body" style="color:{{ complaint.status|yesno:"white,black" }};">
-                    <h5 class="card-title">Primary card title</h5>
                     <p class="card-text">{{complaint.complaint}}</p>
                     {% if not complaint.status %}
                         <a href="{% url 'complaints:edit' complaint.pk %}" 

@@ -171,7 +171,7 @@ def download_visitor_records(request):
         raise PermissionDenied()
     
     records = VisitorRecords.objects.all().order_by('check_in')
-    return render_to_pdf('leave/pdf_visitor_records.html', {"records" : records})
+    return render_to_pdf2('leave/pdf_visitor_records.html', {"records" : records})
 
 @login_required
 def download_studentinout_records(request):

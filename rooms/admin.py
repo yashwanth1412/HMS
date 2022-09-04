@@ -71,13 +71,13 @@ class RequestChangeRoomAdmin(admin.ModelAdmin):
     form = RequestChangeRoomAdminForm
     list_filter = ['status']
     raw_id_fields = ['allocate_room']
-    list_display = ['obj_disp']
+    # list_display = ['obj_disp']
 
-    def obj_disp(self, obj):
-        if obj.status == 'resolved':
-            color_code = '79b340'
-        html = '<span style="color: #{};">{}</span>'.format(color_code, f"{obj}")
-        return format_html(html)
+    # def obj_disp(self, obj):
+    #     if obj.status == 'resolved':
+    #         color_code = '79b340'
+    #     html = '<span style="color: #{};">{}</span>'.format(color_code, f"{obj}")
+    #     return format_html(html)
 
     def get_readonly_fields(self, request, obj=None):
         if obj:

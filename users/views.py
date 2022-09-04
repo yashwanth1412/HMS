@@ -80,7 +80,6 @@ class ProfileView(View):
         })
     
     def post(self, request, *args, **kwargs):
-        print(request.POST)
         profile = request.user.profile
         form = self.editform(request.POST, instance=profile)
         if form.is_valid():
