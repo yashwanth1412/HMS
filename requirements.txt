@@ -4,5 +4,4 @@ python-dotenv
 Pillow
 django-multiselectfield
 django-simple-history
-reportlab
 xhtml2pdf

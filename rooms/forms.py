@@ -1,5 +1,6 @@
 from django import forms
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.utils import OperationalError
 from .models import Hostel, Room, RequestChangeRoom
 
 ROOM_CHOICES = (
@@ -99,8 +100,11 @@ class RequestChangeRoomAdminForm(forms.ModelForm):
             raise forms.ValidationError(f"Both allocate_room and remarks cannot be empty")
 
 def get_vacant_rooms():
-    room_ids = [room.id for room in Room.objects.all() if room.beds > room.students.count()]
-    return Room.objects.filter(id__in = room_ids)
+    try:
+        room_ids = [room.id for room in Room.objects.all() if room.beds > room.students.count()]
+        return Room.objects.filter(id__in = room_ids)
+    except OperationalError:
+        pass
 
 class RequestChangeRoomForm(forms.ModelForm):
     preferences = forms.ModelMultipleChoiceField(

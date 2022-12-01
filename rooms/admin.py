@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
+from django.db.utils import OperationalError
 from .models import Hostel, Room, RequestChangeRoom
 from .forms import HostelAdminForm, RoomAdminForm, RequestChangeRoomAdminForm
 from users.models import Profile
@@ -28,8 +29,11 @@ class ProfileInline(admin.StackedInline):
         return 1
 
 def get_vacant_rooms():
-    room_ids = [room.id for room in Room.objects.all() if room.beds > room.students.count()]
-    return Room.objects.filter(id__in = room_ids)
+    try:
+        room_ids = [room.id for room in Room.objects.all() if room.beds > room.students.count()]
+        return Room.objects.filter(id__in = room_ids)
+    except OperationalError:
+        pass
 
 def get_full_rooms():
     room_ids = [room.id for room in Room.objects.all() if room.beds > room.students.count()]
